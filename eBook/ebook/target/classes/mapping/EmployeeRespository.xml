@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.southwind.repository.EmployeeRepository">
+    <resultMap id="employeeMap" type="Employee">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="acceptDate" column="acceptDate"/>
+        <result property="title" column="title"/>
+        <result property="first_name" column="first_name"/>
+        <result property="last_name" column="last_name"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="birthdate" column="birthdate"/>
+        <result property="nationality" column="nationality"/>
+        <result property="salary" column="salary"/>
+        <result property="accounting" column="accounting"/>
+        <result property="skill" column="skill"/>
+        <result property="admin" column="admin"/>
+        <result property="logged" column="logged"/>
+    </resultMap>
+
+    <select id="count" resultType="Integer">
+        select count(*) from employee
+    </select>
+
+    <select id="find" resultMap="employeeMap">
+        select * from employee limit #{param1},#{param2}
+    </select>
+
+    <insert id="save" parameterType="Employee">
+        insert into employee(id,number,acceptDate,title,first_name,last_name,email,password,phone,birthdate,nationality,
+        salary,accounting,skill,admin,logged) values(#{id},#{number},#{acceptDate},#{title},#{first_name},#{last_name},
+        #{email},#{password},#{phone},#{birthdate},#{nationality},#{salary},#{accounting},#{skill},#{admin},#{logged})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from employee where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="java.lang.String" resultMap="employeeMap">
+        select * from employee where id = #{id}
+    </select>
+
+    <update id="update" parameterType="Employee">
+        update employee set number=#{number},acceptDate=#{acceptDate},title=#{title},first_name=#{first_name},
+        last_name=#{last_name},email=#{email},password=#{password},phone=#{phone},birthdate=#{birthdate},
+        nationality=#{nationality},salary=#{salary},accounting=#{accounting},skill=#{skill},admin=#{admin},
+        logged=#{logged} where id = #{id}
+    </update>
+</mapper>
